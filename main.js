@@ -2,7 +2,7 @@
 
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware for parsing JSON
 app.use(express.json());
@@ -89,6 +89,11 @@ app.put('/users/:id', (req, res) => {
 app.delete('/users/:id', (req, res) => {
     users = users.filter(u => u.id != req.params.id);
     res.status(204).send();
+});
+
+// Agrega esta ruta para evitar el "Cannot GET /"
+app.get('/', (req, res) => {
+    res.send('¡Servidor funcionando correctamente en Render!');
 });
 
 // Start server
